@@ -1,8 +1,8 @@
 package Servlets;
 
 import Services.DataBase;
-//import Utils.DbUtils;
 import Utils.HttpUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -16,8 +16,8 @@ import java.io.IOException;
 import static Utils.Constants.PROPERTY_PASSWORD;
 import static Utils.Constants.PROPERTY_USERNAME;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/register")
+public class RegisterServlet extends HttpServlet{
 
     @Inject
     DataBase dataBase;
@@ -28,18 +28,22 @@ public class LoginServlet extends HttpServlet {
         if (session.getAttribute(PROPERTY_USERNAME) != null) {
             HttpUtils.redirectToHome(request, response);
         }
+
         String username = request.getParameter(PROPERTY_USERNAME);
         String password = request.getParameter(PROPERTY_PASSWORD);
 
-        try {
-//            System.out.println(dataBase.getAllUsers());
-        } catch (Exception e) {
-            // ignore for now
+        if(StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+            response.sendError(400);
         }
-    }
+        try {
+            if(dataBase.userExists(username)) {
+                response.sendError(409, "User already exists");
+            }
+            dataBase.register(username, password);
+            password = null;
+        } catch (Exception e) {
+            response.sendError(500, "Couldn't register user");
+        }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
     }
 }

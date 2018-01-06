@@ -3,6 +3,7 @@ package Utils;
 import Entities.Column;
 import Entities.Entity;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class Mapper {
                         for(Field field : fields) {
                             if (field.isAnnotationPresent(Column.class)) {
                                 Column column = field.getAnnotation(Column.class);
-                                if (column.name().equalsIgnoreCase(columnName) && columnValue != null) {
+                                if (StringUtils.equalsIgnoreCase(column.name(), columnName) && columnValue != null) {
                                     BeanUtils.setProperty(entity, field.getName(), columnValue);
                                     break;
                                 }

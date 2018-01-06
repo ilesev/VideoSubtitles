@@ -16,7 +16,15 @@
         <input type="text" name="username" id="username">
         <label for="password">Password</label>
         <input type="password" id="password" name="password">
-        <input type="submit" value="Submit">
+        <input type="submit" value="Login">
+    </form>
+
+    <form action="register" method="post">
+        <label for="usernameReg">Username</label>
+        <input type="text" name="username" id="usernameReg">
+        <label for="passwordReg">Password</label>
+        <input type="password" id="passwordReg" name="password">
+        <input type="submit" value="Register">
     </form>
 </body>
 </html>
