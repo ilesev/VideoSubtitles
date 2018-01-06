@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
             HttpUtils.redirectToHome(request, response);
         } else {
             try {
-                System.out.println(DbUtils.userExists(username));
+                System.out.println(DbUtils.getAllUsers());
             } catch (Exception e) {
                 // ignore for now
             }
