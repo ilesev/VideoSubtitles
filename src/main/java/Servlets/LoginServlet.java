@@ -24,14 +24,8 @@ public class LoginServlet extends HttpServlet {
         } else {
             try {
                 System.out.println(DbUtils.userExists(username));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                // ignore for now
             }
         }
     }
