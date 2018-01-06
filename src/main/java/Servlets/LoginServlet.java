@@ -1,8 +1,10 @@
 package Servlets;
 
-import Utils.DbUtils;
+import Services.DataBase;
+//import Utils.DbUtils;
 import Utils.HttpUtils;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,10 @@ import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
+    @Inject
+    DataBase dataBase;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username").toString();
@@ -23,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             HttpUtils.redirectToHome(request, response);
         } else {
             try {
-                System.out.println(DbUtils.getAllUsers());
+                System.out.println(dataBase.getAllUsers());
             } catch (Exception e) {
                 // ignore for now
             }
