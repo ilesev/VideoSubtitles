@@ -3,17 +3,16 @@ package Services;
 import Entities.User;
 import Utils.Encryptor;
 import Utils.Mapper;
+import org.apache.commons.collections.CollectionUtils;
 
 import javax.faces.bean.ApplicationScoped;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 @ApplicationScoped
@@ -23,6 +22,7 @@ public class DataBase {
     public static final String dbUrl = "jdbc:mysql://localhost:3306/VIDEO_SUBTITLES";
 
     private static final String sqlUserSelect = "SELECT username FROM accounts WHERE username = ?";
+    private static final String sqlUserSelectWithPassword = "SELECT * FROM accounts WHERE username = ?";
     private static final String sqlRegisterUser = "INSERT INTO accounts(username, password, salt)" +
                                                     "VALUES(?,?,?)";
 
@@ -49,5 +49,18 @@ public class DataBase {
         statement.setString(2, encryptedPassword);
         statement.setString(3, salt);
         statement.executeUpdate();
+    }
+
+    public User getUser(String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Connection connection = getConnection();
+        PreparedStatement statement = connection.prepareStatement(sqlUserSelectWithPassword);
+        statement.setString(1, username);
+        ResultSet resultSet = statement.executeQuery();
+        // should only have 1 user
+        List<User> users = Mapper.map(resultSet, User.class);
+        if (CollectionUtils.isNotEmpty(users)) {
+            return users.get(0);
+        }
+        return null;
     }
 }

@@ -1,8 +1,10 @@
 package Servlets;
 
+import Entities.User;
 import Services.DataBase;
-//import Utils.DbUtils;
+import Utils.Encryptor;
 import Utils.HttpUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -32,6 +34,16 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter(PROPERTY_PASSWORD);
 
         try {
+            User user = dataBase.getUser(username);
+            String pageToRedirect = "/";
+            if (user == null || !Encryptor.verifyUserPassword(password, user.getPassword(), user.getSalt())) {
+                pageToRedirect = "/login?error=true";
+            }
+
+            if(StringUtils.equalsIgnoreCase("/", pageToRedirect)){
+                session.setAttribute("username", username);
+            }
+            response.sendRedirect(pageToRedirect);
 //            System.out.println(dataBase.getAllUsers());
         } catch (Exception e) {
             // ignore for now

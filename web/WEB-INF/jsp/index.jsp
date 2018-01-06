@@ -11,6 +11,15 @@
     <title>$Title$</title>
   </head>
   <body>
+
+  <%
+    if (request.getSession().getAttribute("username") == null) {
+        response.sendRedirect("/login");
+    }
+  %>
+
+  <h1>Hello ${username}</h1>
+
   $END$
   </body>
 </html>
