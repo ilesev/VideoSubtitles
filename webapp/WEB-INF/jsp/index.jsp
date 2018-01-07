@@ -18,7 +18,7 @@
     }
   %>
 
-  <h1>Hello ${username}</h1>
+  <h1>Hello, ${username}</h1>
 
   $END$
   </body>

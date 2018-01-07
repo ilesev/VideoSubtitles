@@ -2,6 +2,7 @@ package Servlets;
 
 import Entities.User;
 import Services.DataBase;
+import Utils.Constants;
 import Utils.Encryptor;
 import Utils.HttpUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             User user = dataBase.getUser(username);
             String pageToRedirect = "/";
             if (user == null || !Encryptor.verifyUserPassword(password, user.getPassword(), user.getSalt())) {
-                pageToRedirect = "/login?error=true";
+                pageToRedirect = String.format(Constants.LOGIN_AND_REGISTRATION_ERROR_URL, Constants.ERROR_LOGGING_IN);
             }
 
             if(StringUtils.equalsIgnoreCase("/", pageToRedirect)){

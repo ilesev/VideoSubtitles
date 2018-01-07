@@ -1,6 +1,7 @@
 package Servlets;
 
 import Services.DataBase;
+import Utils.Constants;
 import Utils.HttpUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static Utils.Constants.PROPERTY_PASSWORD;
-import static Utils.Constants.PROPERTY_USERNAME;
+
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet{
@@ -25,24 +25,33 @@ public class RegisterServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if (session.getAttribute(PROPERTY_USERNAME) != null) {
+        if (session.getAttribute(Constants.PROPERTY_USERNAME) != null) {
             HttpUtils.redirectToHome(request, response);
         }
 
-        String username = request.getParameter(PROPERTY_USERNAME);
-        String password = request.getParameter(PROPERTY_PASSWORD);
+        String username = request.getParameter(Constants.PROPERTY_USERNAME);
+        String password = request.getParameter(Constants.PROPERTY_PASSWORD);
+        String confirmedPassword = request.getParameter(Constants.PROPERTY_CONFIRM_PASSWORD);
 
-        if(StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
-            response.sendError(400);
+        if(StringUtils.isBlank(username) || StringUtils.isBlank(password) || StringUtils.isBlank(confirmedPassword)) {
+            response.sendRedirect(String.format(Constants.LOGIN_AND_REGISTRATION_ERROR_URL,Constants.ERROR_BLANK_FIELDS));
+            return;
+        } else if(!StringUtils.equals(password, confirmedPassword)) {
+            response.sendRedirect(String.format(Constants.LOGIN_AND_REGISTRATION_ERROR_URL, Constants.ERROR_PASSWORDS_NOT_MATCH));
+            return;
         }
         try {
             if(dataBase.userExists(username)) {
-                response.sendError(409, "User already exists");
+                response.sendRedirect(String.format(Constants.LOGIN_AND_REGISTRATION_ERROR_URL, String.format(Constants.ERROR_USERNAME_EXISTS, username)));
+                return;
             }
             dataBase.register(username, password);
+            session.setAttribute("username", username);
+            response.sendRedirect("/");
             password = null;
         } catch (Exception e) {
-            response.sendError(500, "Couldn't register user");
+            response.sendRedirect(String.format(Constants.LOGIN_AND_REGISTRATION_ERROR_URL, Constants.ERROR_INTERNAL_SERVER));
+
         }
 
     }
