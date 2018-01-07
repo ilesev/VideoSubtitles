@@ -53,6 +53,11 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute(PROPERTY_USERNAME) != null) {
+            HttpUtils.redirectToHome(request, response);
+            return;
+        }
         request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
     }
 }

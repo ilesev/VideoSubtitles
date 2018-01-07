@@ -63,5 +63,6 @@
     </form>
 
 </div>
+<script type="application/javascript" src="${pageContext.request.contextPath}/js/login.js"></script>
 </body>
 </html>
