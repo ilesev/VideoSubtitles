@@ -1,5 +1,7 @@
 package Utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
@@ -45,6 +47,6 @@ public final class Encryptor {
     public static boolean verifyUserPassword(String providedPassword,
                                              String securedPassword, String salt) {
         String newSecurePassword = generateSecurePassword(providedPassword, salt);
-        return newSecurePassword.equalsIgnoreCase(securedPassword);
+        return StringUtils.equals(newSecurePassword, securedPassword);
     }
 }
