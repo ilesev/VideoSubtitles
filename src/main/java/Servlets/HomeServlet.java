@@ -1,5 +1,7 @@
 package Servlets;
 
+import Utils.Constants;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +13,7 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession().getAttribute("username") == null) {
+        if(request.getSession().getAttribute(Constants.PROPERTY_USERNAME) == null) {
             response.sendRedirect("/login");
             return;
         }
