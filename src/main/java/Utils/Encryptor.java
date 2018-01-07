@@ -16,7 +16,7 @@ public final class Encryptor {
     private static final int KEY_LENGTH = 256;
 
     public static String getSalt() {
-        int length = RANDOM.nextInt(60);
+        int length = ALPHABET.length();
         StringBuilder returnValue = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
             returnValue.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));

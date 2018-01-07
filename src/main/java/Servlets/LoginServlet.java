@@ -45,9 +45,8 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("username", username);
             }
             response.sendRedirect(pageToRedirect);
-//            System.out.println(dataBase.getAllUsers());
         } catch (Exception e) {
-            // ignore for now
+            response.sendRedirect(String.format(Constants.LOGIN_AND_REGISTRATION_ERROR_URL, Constants.ERROR_INTERNAL_SERVER));
         }
     }
 
