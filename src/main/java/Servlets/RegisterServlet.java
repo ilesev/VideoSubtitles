@@ -20,7 +20,7 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet{
 
     @Inject
-    DataBase dataBase;
+    private DataBase dataBase;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
