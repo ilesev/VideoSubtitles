@@ -23,7 +23,7 @@ import static Utils.Constants.PROPERTY_USERNAME;
 public class LoginServlet extends HttpServlet {
 
     @Inject
-    DataBase dataBase;
+    private DataBase dataBase;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
