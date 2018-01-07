@@ -11,6 +11,10 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getSession().getAttribute("username") == null) {
+            response.sendRedirect("/login");
+            return;
+        }
         request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
     }
 }

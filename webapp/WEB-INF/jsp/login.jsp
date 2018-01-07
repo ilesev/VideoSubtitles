@@ -24,7 +24,7 @@
 <body>
 <div class="user">
     <header class="user__header">
-        <img src="${pageContext.request.contextPath}/images/logo.png" alt="" style="width: 70px; height: 50px;"/>
+        <img src="${pageContext.request.contextPath}/images/logo-login.png" alt="" style="width: 70px; height: 50px;"/>
         <h1 class="user__title">Sign in to start creating!</h1>
     </header>
 

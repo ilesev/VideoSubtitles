@@ -8,15 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <title>Video Subtitle Maker</title>
   </head>
   <body>
-
-  <%
-    if (request.getSession().getAttribute("username") == null) {
-        response.sendRedirect("/login");
-    }
-  %>
+  <%@include file="navigation.jsp"%>
 
   <h1>Hello, ${username}</h1>
 
