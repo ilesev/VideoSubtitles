@@ -46,7 +46,7 @@ public class RegisterServlet extends HttpServlet{
                 return;
             }
             dataBase.register(username, password);
-            session.setAttribute("username", username);
+            session.setAttribute(Constants.PROPERTY_USERNAME, username);
             response.sendRedirect("/");
             password = null;
         } catch (Exception e) {
