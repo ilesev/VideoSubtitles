@@ -5,6 +5,10 @@
   Time: 9:40
   To change this template use File | Settings | File Templates.
 --%>
+
+<%
+    boolean hasError = request.getParameter("errorMessage") != null;
+%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -35,18 +39,13 @@
 
         <input class="btn" type="submit" id="signIn" value="Sign in"/>
     </form>
-    <%
-        if (request.getParameter("errorMessage") != null){
-    %>
-    <p style="color: red; margin-top: 20px; margin-bottom: -25px;" class="user__header"><%= request.getParameter("errorMessage")%></p>
-    <% } else {
-    %>
+
     <header class="user__header">
-        <h1 class="user__title" style=" margin-top: 20px; margin-bottom: -25px;"> Join us if you don't have an account.</h1>
+        <h1 class="user__title" style=" margin-top: 20px; margin-bottom: -25px; <%= hasError ? "color: red" : ""%>">
+            <%= hasError? request.getParameter("errorMessage") : "Register to get full access!"%>
+        </h1>
     </header>
-    <%
-    }
-    %>
+
     <form class="form" action="register" method="post">
         <div class="form__group">
             <input type="text" placeholder="Username" class="form__input" name="username"/>
