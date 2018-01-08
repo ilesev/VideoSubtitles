@@ -7,7 +7,14 @@ use VIDEO_SUBTITLES;
 
 CREATE TABLE accounts(                          
   id SERIAL PRIMARY KEY,                          
-  username VARCHAR(100) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL                                             
+  username NVARCHAR(100) UNIQUE NOT NULL,
+  password NVARCHAR(255) NOT NULL,
+  salt NVARCHAR(255)
 ); 
+
+CREATE TABLE USER_FILES(
+  username NVARCHAR(100) NOT NULL,
+  file_location NVARCHAR(255) NOT NULL,
+  type NVARCHAR(10)
+);
 ```
