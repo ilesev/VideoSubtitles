@@ -16,6 +16,12 @@
 
   <h1>Hello, ${username}</h1>
 
+  <h1>Upload a file</h1>
+  <form method="post" action="upload" enctype="multipart/form-data">
+    <input type="file" accept="video/mp4" name="file" multiple>
+    <input type="submit" value="Upload">
+  </form>
+
   <form method="post" action="logout">
     <input type="submit" value="Logout">
   </form>

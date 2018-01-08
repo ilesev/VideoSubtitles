@@ -51,8 +51,6 @@ public class RegisterServlet extends HttpServlet{
             password = null;
         } catch (Exception e) {
             response.sendRedirect(String.format(Constants.LOGIN_AND_REGISTRATION_ERROR_URL, Constants.ERROR_INTERNAL_SERVER));
-
         }
-
     }
 }
