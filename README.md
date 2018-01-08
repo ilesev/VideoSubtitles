@@ -9,7 +9,7 @@ CREATE TABLE accounts(
   id SERIAL PRIMARY KEY,                          
   username NVARCHAR(100) UNIQUE NOT NULL,
   password NVARCHAR(255) NOT NULL,
-  salt NVARCHAR(255)
+  salt NVARCHAR(255) NOT NULL
 ); 
 
 CREATE TABLE USER_FILES(
