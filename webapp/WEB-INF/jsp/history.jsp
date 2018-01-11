@@ -16,6 +16,5 @@
 <%@include file="navigation.jsp"%>
 
 <h1>History</h1>
-
 </body>
 </html>

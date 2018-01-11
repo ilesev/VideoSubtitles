@@ -4,8 +4,8 @@
 </div>
 <div id='cssmenu'>
     <ul>
-        <li class='active'><a href='#'>Home</a></li>
-        <li><a href='#'>History</a></li>
+        <li class=' ${pageContext.request.requestURI eq '/WEB-INF/jsp/index.jsp' ? 'active' : ''} '><a href='/'>Home</a></li>
+        <li class=' ${pageContext.request.requestURI eq '/WEB-INF/jsp/history.jsp' ? 'active' : ''} '><a href='/history'>History</a></li>
         <li style="float: right; margin-right: 4px;"><a href="#" id="logout">Logout</a></li>
     </ul>
 </div>
