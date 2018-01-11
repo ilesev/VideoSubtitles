@@ -12,6 +12,7 @@ import java.io.IOException;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet{
+    // Will leave this as a POST since for some reason i can't get DELETE to work with an ajax call
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
