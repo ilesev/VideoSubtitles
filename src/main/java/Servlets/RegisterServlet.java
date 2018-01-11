@@ -22,11 +22,12 @@ public class RegisterServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute(Constants.PROPERTY_USERNAME) != null) {
+        // if user is logged in redirect to home page
+        if (!HttpUtils.userIsNotLoggedIn(request, response)) {
             HttpUtils.redirectToHome(request, response);
         }
 
+        HttpSession session = request.getSession();
         String username = request.getParameter(Constants.PROPERTY_USERNAME);
         String password = request.getParameter(Constants.PROPERTY_PASSWORD);
         String confirmedPassword = request.getParameter(Constants.PROPERTY_CONFIRM_PASSWORD);

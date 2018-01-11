@@ -23,11 +23,12 @@ public class HistoryServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute(Constants.PROPERTY_USERNAME) == null ) {
+        if (HttpUtils.userIsNotLoggedIn(request, response) ) {
             HttpUtils.redirectToHome(request, response);
+            return;
         }
 
+        HttpSession session = request.getSession();
         List<HistoryDTO> list = historyService.getUserHistory(session.getAttribute(Constants.PROPERTY_USERNAME).toString());
 
         request.getRequestDispatcher("/WEB-INF/jsp/history.jsp").forward(request, response);

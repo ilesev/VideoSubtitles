@@ -27,10 +27,13 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute(PROPERTY_USERNAME) != null) {
+        // if user is logged in redirect to home page
+        if (!HttpUtils.userIsNotLoggedIn(request, response)) {
             HttpUtils.redirectToHome(request, response);
+            return;
         }
+
+        HttpSession session = request.getSession();
         String username = request.getParameter(PROPERTY_USERNAME);
         String password = request.getParameter(PROPERTY_PASSWORD);
 
