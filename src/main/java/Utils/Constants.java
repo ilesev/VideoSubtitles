@@ -4,14 +4,15 @@ public interface Constants {
     String PROPERTY_USERNAME = "username";
     String PROPERTY_PASSWORD = "password";
     String PROPERTY_CONFIRM_PASSWORD = "confirm";
+    String PROPERTY_ERROR_MESSAGE = "errorMessage";
+    String PROPERTY_UPLOAD_MESSAGE = "uploadMessage";
 
     //Directories
     String FILE_SAVE_DIRECTORY = "/Users/ilesev/Desktop/Web/";
 
     // URLS
-    String LOGIN_AND_REGISTRATION_ERROR_URL = "/login?errorMessage=%s";
-    String HOME_ERROR_URL = "/?errorMessage=%s";
-    String HOME_SUCCESSFUL_UPLOAD = "/?uploadMessage=%s";
+    String LOGIN_AND_REGISTRATION_URL = "/login";
+    String HOME_URL = "/";
 
     //Success
     String FILE_UPLOADED = "File was uploaded successfully.";

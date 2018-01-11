@@ -36,17 +36,19 @@ public class LoginServlet extends HttpServlet {
 
         try {
             User user = dataBase.getUser(username);
-            String pageToRedirect = "/";
+            String pageToRedirect = Constants.HOME_URL;
             if (user == null || !Encryptor.verifyUserPassword(password, user.getPassword(), user.getSalt())) {
-                pageToRedirect = String.format(Constants.LOGIN_AND_REGISTRATION_ERROR_URL, Constants.ERROR_LOGGING_IN);
+                session.setAttribute(Constants.PROPERTY_ERROR_MESSAGE, Constants.ERROR_LOGGING_IN);
+                pageToRedirect = Constants.LOGIN_AND_REGISTRATION_URL;
             }
 
-            if(StringUtils.equalsIgnoreCase("/", pageToRedirect)){
-                session.setAttribute("username", username);
+            if(StringUtils.equalsIgnoreCase(Constants.HOME_URL, pageToRedirect)){
+                session.setAttribute(Constants.PROPERTY_USERNAME, username);
             }
             response.sendRedirect(pageToRedirect);
         } catch (Exception e) {
-            response.sendRedirect(String.format(Constants.LOGIN_AND_REGISTRATION_ERROR_URL, Constants.ERROR_INTERNAL_SERVER));
+            session.setAttribute(Constants.PROPERTY_ERROR_MESSAGE, Constants.ERROR_INTERNAL_SERVER);
+            response.sendRedirect(Constants.LOGIN_AND_REGISTRATION_URL);
         }
     }
 

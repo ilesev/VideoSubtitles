@@ -14,7 +14,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getSession().getAttribute(Constants.PROPERTY_USERNAME) == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect(Constants.LOGIN_AND_REGISTRATION_URL);
             return;
         }
         request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);

@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Utils.Constants" %><%--
   Created by IntelliJ IDEA.
   User: ilesev
   Date: 5.01.18
@@ -7,9 +7,10 @@
 --%>
 
 <%
-    boolean hasError = request.getParameter("errorMessage") != null;
+    boolean hasError = request.getSession().getAttribute("errorMessage") != null;
 %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,7 +43,12 @@
 
     <header class="user__header">
         <h1 class="user__title" style=" margin-top: 20px; margin-bottom: -25px; <%= hasError ? "color: red" : ""%>">
-            <%= hasError? request.getParameter("errorMessage") : "Register to get full access!"%>
+            <% if (hasError) { %>
+            ${errorMessage}
+            <c:remove var="errorMessage" scope="session" />
+            <%} else { %>
+                Register to get full access!
+            <%}%>
         </h1>
     </header>
 

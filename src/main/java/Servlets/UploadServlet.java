@@ -26,7 +26,7 @@ public class UploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute(Constants.PROPERTY_USERNAME) == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect(Constants.LOGIN_AND_REGISTRATION_URL);
             return;
         }
         try{
@@ -44,9 +44,11 @@ public class UploadServlet extends HttpServlet {
                 item.write(new File(fileDir + "/" + item.getName()));
             }
 
-            response.sendRedirect(String.format(Constants.HOME_SUCCESSFUL_UPLOAD, Constants.FILE_UPLOADED));
+            session.setAttribute(Constants.PROPERTY_UPLOAD_MESSAGE, Constants.FILE_UPLOADED);
+            response.sendRedirect(Constants.HOME_URL);
         } catch (Exception e) {
-            response.sendRedirect(String.format(Constants.HOME_ERROR_URL, Constants.ERROR_UPLOAD_FAILED));
+            session.setAttribute(Constants.PROPERTY_ERROR_MESSAGE, Constants.ERROR_UPLOAD_FAILED);
+            response.sendRedirect(Constants.HOME_URL);
         }
     }
 
