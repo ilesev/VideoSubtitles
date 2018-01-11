@@ -1,9 +1,9 @@
 package Services;
 
-import Entities.ViewModels.HistoryVM;
+import Entities.DTO.HistoryDTO;
 
 import java.util.List;
 
 public interface UserHistoryService {
-    List<HistoryVM> getUserHistory(String username);
+    List<HistoryDTO> getUserHistory(String username);
 }

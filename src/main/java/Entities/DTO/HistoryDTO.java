@@ -1,6 +1,6 @@
-package Entities.ViewModels;
+package Entities.DTO;
 
-public class HistoryVM {
+public class HistoryDTO {
     private String fileName;
     private FileType fileType;
 

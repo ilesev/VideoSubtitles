@@ -1,6 +1,6 @@
 package Servlets;
 
-import Entities.ViewModels.HistoryVM;
+import Entities.DTO.HistoryDTO;
 import Services.UserHistoryService;
 import Utils.Constants;
 import Utils.HttpUtils;
@@ -28,7 +28,7 @@ public class HistoryServlet extends HttpServlet{
             HttpUtils.redirectToHome(request, response);
         }
 
-        List<HistoryVM> list = historyService.getUserHistory(session.getAttribute(Constants.PROPERTY_USERNAME).toString());
+        List<HistoryDTO> list = historyService.getUserHistory(session.getAttribute(Constants.PROPERTY_USERNAME).toString());
 
         request.getRequestDispatcher("/WEB-INF/jsp/history.jsp").forward(request, response);
     }

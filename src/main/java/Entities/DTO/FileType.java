@@ -1,4 +1,4 @@
-package Entities.ViewModels;
+package Entities.DTO;
 
 public enum FileType {
     Subtitle,

@@ -1,7 +1,7 @@
 package Services;
 
-import Entities.ViewModels.FileType;
-import Entities.ViewModels.HistoryVM;
+import Entities.DTO.FileType;
+import Entities.DTO.HistoryDTO;
 import Utils.Constants;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @ApplicationScoped
 public class UserHistoryServiceImpl implements UserHistoryService {
     @Override
-    public List<HistoryVM> getUserHistory(String username) {
+    public List<HistoryDTO> getUserHistory(String username) {
         String path = Constants.FILE_SAVE_DIRECTORY + username;
         if (!Files.exists(Paths.get(path))) {
             return Collections.emptyList();
@@ -28,12 +28,12 @@ public class UserHistoryServiceImpl implements UserHistoryService {
             return Collections.emptyList();
         }
 
-        List<HistoryVM> history = new LinkedList<>();
+        List<HistoryDTO> history = new LinkedList<>();
         for (File file : files) {
             String fileName = file.getName();
             String fileNameWithoutExtension = StringUtils.substringBeforeLast(fileName, ".");
             String extension = StringUtils.substringAfterLast(fileName, ".");
-            HistoryVM vm = new HistoryVM();
+            HistoryDTO vm = new HistoryDTO();
             vm.setFileName(fileNameWithoutExtension);
             vm.setFileType( StringUtils.equalsIgnoreCase(extension, "mp4") ? FileType.Video : FileType.Subtitle);
             history.add(vm);
