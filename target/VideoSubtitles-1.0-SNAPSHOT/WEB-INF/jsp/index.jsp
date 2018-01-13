@@ -18,8 +18,8 @@
   </head>
   <body>
     <%@include file="navigation.jsp"%>
-    <div class="user">
-      <header class="user__header">
+    <div class="video">
+      <header class="video__header">
        <h1>Hello, ${username}</h1>
         <h1>Upload a file</h1>
       </header>

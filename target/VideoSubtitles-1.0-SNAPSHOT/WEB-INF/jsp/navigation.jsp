@@ -1,12 +1,12 @@
 <div style="position: relative; text-align: center;">
     <img src="${pageContext.request.contextPath}/images/logo.jpg" class="center">
-    <span class="image-footer">Create subtitles easily!</span>
+    <span>Create subtitles easily!</span>
 </div>
 <div id='cssmenu'>
     <ul>
         <li class=' ${pageContext.request.requestURI eq '/WEB-INF/jsp/index.jsp' ? 'active' : ''} '><a href='/'>Home</a></li>
         <li class=' ${pageContext.request.requestURI eq '/WEB-INF/jsp/history.jsp' ? 'active' : ''} '><a href='/history'>History</a></li>
-        <li style="float: right; margin-right: 5px;"><a href="#" id="logout">Logout</a></li>
+        <li style="float: right; margin-right: 4px;"><a href="#" id="logout">Logout</a></li>
     </ul>
 </div>
 <script

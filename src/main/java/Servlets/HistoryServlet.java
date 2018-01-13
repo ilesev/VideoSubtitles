@@ -19,7 +19,7 @@ import java.util.List;
 public class HistoryServlet extends HttpServlet{
 
     @Inject
-    UserHistoryService historyService;
+    private UserHistoryService historyService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,6 +30,7 @@ public class HistoryServlet extends HttpServlet{
 
         HttpSession session = request.getSession();
         List<HistoryDTO> list = historyService.getUserHistory(session.getAttribute(Constants.PROPERTY_USERNAME).toString());
+        request.setAttribute("list", list);
 
         request.getRequestDispatcher("/WEB-INF/jsp/history.jsp").forward(request, response);
     }
