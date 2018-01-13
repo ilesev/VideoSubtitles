@@ -1,5 +1,6 @@
 package Servlets;
 
+import Services.HttpSenderService;
 import Utils.Constants;
 import Utils.HttpUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -7,6 +8,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +24,7 @@ import java.util.List;
 
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
