@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("")
-public class HomeServlet extends HttpServlet {
-
+@WebServlet("/editor")
+public class EditorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getSession().getAttribute(Constants.PROPERTY_USERNAME) == null) {
@@ -19,6 +18,6 @@ public class HomeServlet extends HttpServlet {
             return;
         }
 
-        request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/editor.jsp").forward(request, response);
     }
 }

@@ -5,6 +5,7 @@
 <div id='cssmenu'>
     <ul>
         <li class=' ${pageContext.request.requestURI eq '/WEB-INF/jsp/index.jsp' ? 'active' : ''} '><a href='/'>Home</a></li>
+        <li class=' ${pageContext.request.requestURI eq '/WEB-INF/jsp/editor.jsp' ? 'active' : ''} '><a href='/editor'>Editor</a></li>
         <li class=' ${pageContext.request.requestURI eq '/WEB-INF/jsp/history.jsp' ? 'active' : ''} '><a href='/history'>History</a></li>
         <li style="float: right; margin-right: 5px;"><a href="#" id="logout">Logout</a></li>
     </ul>
