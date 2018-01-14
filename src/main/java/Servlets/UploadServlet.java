@@ -25,6 +25,9 @@ import java.util.List;
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
 
+    @Inject
+    private HttpSenderService senderService;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
