@@ -8,7 +8,7 @@ public interface Constants {
     String PROPERTY_UPLOAD_MESSAGE = "uploadMessage";
 
     //Directories
-    String FILE_SAVE_DIRECTORY = "/Users/ilesev/Desktop/Web/";
+    String FILE_SAVE_DIRECTORY = "C:\\Users\\Iliyan\\Desktop\\";
 
     // URLS
     String LOGIN_AND_REGISTRATION_URL = "/login";
@@ -16,6 +16,11 @@ public interface Constants {
 
     //Success
     String FILE_UPLOADED = "File was uploaded successfully.";
+
+    //FFMPEG
+    String BASE_FFMPEG_BIN_LOCATION = "C:\\Users\\Iliyan\\Desktop\\ffmpeg-20180113-c51301d-win64-static\\bin\\";
+    String FFMPEG_LOCATION = BASE_FFMPEG_BIN_LOCATION + "ffmpeg.exe";
+    String FFPROBE_LOCATION = BASE_FFMPEG_BIN_LOCATION + "ffmpeg.exe";
 
     //Errors
     String ERROR_LOGGING_IN = "Username or password were incorrect.";

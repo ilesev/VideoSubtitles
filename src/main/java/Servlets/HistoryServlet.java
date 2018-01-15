@@ -40,14 +40,13 @@ public class HistoryServlet extends HttpServlet{
         request.setAttribute("list", list);
 
 
-        FFmpeg ffmpeg = new FFmpeg();
-        FFprobe ffprobe = new FFprobe();
-        FFmpegProbeResult probeResult = ffprobe.probe(Constants.FILE_SAVE_DIRECTORY + list.get(0).getFileName() + ".mp4");
+        FFmpeg ffmpeg = new FFmpeg(Constants.FFMPEG_LOCATION);
+        FFprobe ffprobe = new FFprobe(Constants.FFPROBE_LOCATION);
 
         FFmpegBuilder builder = new FFmpegBuilder()
                 .setInput(Constants.FILE_SAVE_DIRECTORY + list.get(0).getFileName() + ".mp4")  // Filename, or a FFmpegProbeResult
                 .overrideOutputFiles(true) // Override the output if it exists
-                .addOutput(Constants.FILE_SAVE_DIRECTORY  + list.get(0).getFileName())   // Filename for the destination
+                .addOutput(Constants.FILE_SAVE_DIRECTORY  + list.get(0).getFileName() + ".mp3")   // Filename for the destination
                 .setFormat("mp3")        // Format is inferred from filename, or can be set
                 .done();
         FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
