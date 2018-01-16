@@ -38,7 +38,7 @@ public class HttpSenderServiceImpl implements HttpSenderService {
     private SubtitleParser subtitleParser;
 
     @Override
-    public void transcribeAudio() throws URISyntaxException, IOException {
+    public void transcribeAudio(String audioPath) throws URISyntaxException, IOException {
         URI uri = new URIBuilder("https://api.speechmatics.com/v1.0/user/34828/jobs/")
                 .addParameter("auth_token", AUTH_TOKEN)
                 .build();
@@ -46,7 +46,7 @@ public class HttpSenderServiceImpl implements HttpSenderService {
             HttpPost httpPost = new HttpPost(uri);
             httpPost.setHeader("Accept", "application/json");
 
-            File file = new File("/Users/ilesev/Downloads/test.mp3");
+            File file = new File(audioPath);
 
             HttpEntity entity = MultipartEntityBuilder.create()
                     .addTextBody("model", "en-US")
@@ -60,7 +60,8 @@ public class HttpSenderServiceImpl implements HttpSenderService {
             int id = Integer.parseInt(StringUtils.substringAfterLast(response[4], " "));
 
             List<Words> words = getResponseAsList(id);
-            subtitleParser.parse(words);
+            String subtitleLocation = StringUtils.substringBeforeLast(audioPath, ".") + ".vtt";
+            subtitleParser.parse(words, subtitleLocation);
         }
     }
 

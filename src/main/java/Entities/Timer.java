@@ -69,7 +69,8 @@ public class Timer {
                 .append(":")
                 .append(String.format("%02d", seconds))
                 .append(".")
-                .append(String.format("%02d", milliseconds));
+                .append(String.format("%02d", milliseconds))
+                .append("0");
         return sb.toString();
     }
 }

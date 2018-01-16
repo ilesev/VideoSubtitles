@@ -1,5 +1,6 @@
 package Servlets;
 
+import Services.AudioConverter;
 import Services.HttpSenderService;
 import Utils.Constants;
 import Utils.HttpUtils;
@@ -7,6 +8,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -28,6 +30,9 @@ public class UploadServlet extends HttpServlet {
     @Inject
     private HttpSenderService senderService;
 
+    @Inject
+    private AudioConverter audioConverter;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -35,23 +40,36 @@ public class UploadServlet extends HttpServlet {
             response.sendRedirect(Constants.LOGIN_AND_REGISTRATION_URL);
             return;
         }
-        try{
+        try {
             ServletFileUpload sfu = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> file = sfu.parseRequest(request);
             if (CollectionUtils.isEmpty(file)) {
-                HttpUtils.redirectToHome(request,response);
+                HttpUtils.redirectToHome(request, response);
                 return;
             }
 
-            String fileDir = Constants.FILE_SAVE_DIRECTORY + session.getAttribute(Constants.PROPERTY_USERNAME);
+            String username = session.getAttribute(Constants.PROPERTY_USERNAME).toString();
+            String fileDir = Constants.FILE_SAVE_DIRECTORY + username;
             createFolderIfNonExistent(fileDir);
 
-            for(FileItem item : file) {
-                item.write(new File(fileDir + "/" + item.getName()));
+            String fileName = null;
+            String filePath = null;
+
+            // should only have one file
+            for (FileItem item : file) {
+                fileName = item.getName();
+                filePath = fileDir + "/" + fileName;
+                item.write(new File(filePath));
             }
 
-            session.setAttribute(Constants.PROPERTY_UPLOAD_MESSAGE, Constants.FILE_UPLOADED);
-            response.sendRedirect(Constants.HOME_URL);
+            audioConverter.convert(filePath);
+            String audioPath = StringUtils.substringBeforeLast(filePath, ".") + ".mp3";
+            senderService.transcribeAudio(audioPath);
+            String subtitlePath = StringUtils.substringBeforeLast(filePath, ".") + ".vtt";
+
+            session.setAttribute(Constants.PROPERTY_VIDEO_ADDR,   username + "/" + fileName);
+            session.setAttribute(Constants.PROPERTY_SUBTITLE_ADDR,  username + "/" + StringUtils.substringBeforeLast(fileName, ".") + ".vtt");
+            response.sendRedirect(Constants.EDITOR_URL);
         } catch (Exception e) {
             session.setAttribute(Constants.PROPERTY_ERROR_MESSAGE, Constants.ERROR_UPLOAD_FAILED);
             response.sendRedirect(Constants.HOME_URL);

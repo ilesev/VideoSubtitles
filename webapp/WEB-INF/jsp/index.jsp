@@ -25,7 +25,7 @@
 
       <form class="form" method="post" action="upload" enctype="multipart/form-data">
         <div class="form__group">
-          <input type="file" accept="video/mp4" class="form__input" name="file" multiple>
+          <input type="file" accept="video/mp4" class="form__input" name="file">
         </div>
           <input class="btn" type="submit" value="Upload">
       </form>
