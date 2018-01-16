@@ -31,11 +31,18 @@ public class UserHistoryServiceImpl implements UserHistoryService {
         List<HistoryDTO> history = new LinkedList<>();
         for (File file : files) {
             String fileName = file.getName();
-            String fileNameWithoutExtension = StringUtils.substringBeforeLast(fileName, ".");
             String extension = StringUtils.substringAfterLast(fileName, ".");
+            if (!(extension.equals("mp4") || extension.equals("vtt"))) {
+                continue;
+            }
+            String fileNameWithoutExtension = StringUtils.substringBeforeLast(fileName, ".");
             HistoryDTO vm = new HistoryDTO();
             vm.setFileName(fileNameWithoutExtension);
-            vm.setFileType( StringUtils.equalsIgnoreCase(extension, "mp4") ? FileType.Video : FileType.Subtitle);
+            if (StringUtils.equalsIgnoreCase(extension, "mp4")) {
+                vm.setFileType(FileType.Video);
+            } else if(StringUtils.equalsIgnoreCase(extension, "vtt")) {
+                vm.setFileType(FileType.Subtitle);
+            }
             history.add(vm);
         }
 

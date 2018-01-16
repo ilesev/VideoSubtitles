@@ -39,21 +39,6 @@ public class HistoryServlet extends HttpServlet{
         List<HistoryDTO> list = historyService.getUserHistory(session.getAttribute(Constants.PROPERTY_USERNAME).toString());
         request.setAttribute("list", list);
 
-
-        FFmpeg ffmpeg = new FFmpeg(Constants.FFMPEG_LOCATION);
-        FFprobe ffprobe = new FFprobe(Constants.FFPROBE_LOCATION);
-
-        FFmpegBuilder builder = new FFmpegBuilder()
-                .setInput(Constants.FILE_SAVE_DIRECTORY + list.get(0).getFileName() + ".mp4")  // Filename, or a FFmpegProbeResult
-                .overrideOutputFiles(true) // Override the output if it exists
-                .addOutput(Constants.FILE_SAVE_DIRECTORY  + list.get(0).getFileName() + ".mp3")   // Filename for the destination
-                .setFormat("mp3")        // Format is inferred from filename, or can be set
-                .done();
-        FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
-
-        // Run a one-pass encode
-        executor.createJob(builder).run();
-
         request.getRequestDispatcher("/WEB-INF/jsp/history.jsp").forward(request, response);
     }
 }
