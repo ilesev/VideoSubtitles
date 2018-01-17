@@ -65,7 +65,6 @@ public class UploadServlet extends HttpServlet {
             audioConverter.convert(filePath);
             String audioPath = StringUtils.substringBeforeLast(filePath, ".") + ".mp3";
             senderService.transcribeAudio(audioPath);
-            String subtitlePath = StringUtils.substringBeforeLast(filePath, ".") + ".vtt";
 
             session.setAttribute(Constants.PROPERTY_VIDEO_ADDR,   username + "/" + fileName);
             session.setAttribute(Constants.PROPERTY_SUBTITLE_ADDR,  username + "/" + StringUtils.substringBeforeLast(fileName, ".") + ".vtt");
