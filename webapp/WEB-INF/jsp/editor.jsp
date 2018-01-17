@@ -5,6 +5,7 @@
 <head>
     <title>Editor</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/video.css">
 </head>
 <body>
     <%@include file="navigation.jsp"%>
@@ -17,16 +18,19 @@
                 <option value="${item}">${item}</option>
             </c:forEach>
         </select>
+
     <form action="editorLoader" method="post" id="videoLoader">
         <input type="submit" value="Load Video">
     </form>
+
     <% if(request.getSession().getAttribute(Constants.PROPERTY_VIDEO_ADDR) != null) {%>
     <video width="640" height="480" crossorigin="anonymous" controls>
         <source src="/files/${video}" type="video/mp4">
-        <track src="/files/${subtitle}" kind="captions" srclang="en" label="English" default>
+        <track src="/files/${subtitle}" kind="subtitles" srclang="en" label="English" default>
     </video>
     <c:remove var="video" scope="session" />
     <c:remove var="subtitle" scope="session" />
     <%}%>
+
 </body>
 </html>
