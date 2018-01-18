@@ -76,6 +76,7 @@ public class UploadServlet extends HttpServlet {
                 subtitleContent = IOUtils.toString(fileInputStream, Charset.defaultCharset());
             }
 
+            session.setAttribute("fileName", fileName);
             session.setAttribute(Constants.PROPERTY_VIDEO_ADDR,   username + "/" + fileName);
             session.setAttribute(Constants.PROPERTY_SUBTITLE_ADDR,  relativeSubtitlePath);
             session.setAttribute("subContent", subtitleContent);

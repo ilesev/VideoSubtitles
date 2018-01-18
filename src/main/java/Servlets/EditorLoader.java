@@ -18,7 +18,7 @@ import java.nio.charset.Charset;
 @WebServlet("/editorLoader")
 public class EditorLoader extends HttpServlet {
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (HttpUtils.userIsNotLoggedIn(request, response)) {
             HttpUtils.redirectToHome(request, response);
             return;
@@ -32,13 +32,15 @@ public class EditorLoader extends HttpServlet {
             return;
         }
 
-        String relativeVideoPath = "/" + username + "/" + videoName + ".mp4";
-        String relativeSubtitlePath = "/" + username + "/" + videoName + ".vtt";
+        String relativeVideoPath = username + "/" + videoName + ".mp4";
+        String relativeSubtitlePath = username + "/" + videoName + ".vtt";
         String subtitleContent = StringUtils.EMPTY;
-        String absoluteSubtitlePath = StringUtils.substringBeforeLast(Constants.FILE_SAVE_DIRECTORY, "/") + relativeSubtitlePath;
+        String absoluteSubtitlePath = Constants.FILE_SAVE_DIRECTORY + relativeSubtitlePath;
         try (FileInputStream fileInputStream = new FileInputStream(absoluteSubtitlePath)) {
             subtitleContent = IOUtils.toString(fileInputStream, Charset.defaultCharset());
         }
+
+        session.setAttribute("fileName", videoName);
         session.setAttribute(Constants.PROPERTY_VIDEO_ADDR, relativeVideoPath);
         session.setAttribute(Constants.PROPERTY_SUBTITLE_ADDR, relativeSubtitlePath);
         session.setAttribute("subContent", subtitleContent);
