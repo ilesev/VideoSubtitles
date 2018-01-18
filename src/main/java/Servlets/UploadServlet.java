@@ -61,7 +61,7 @@ public class UploadServlet extends HttpServlet {
             // should only have one file
             for (FileItem item : file) {
                 fileName = item.getName();
-                filePath = fileDir + "/" + fileName;
+                filePath = fileDir + "\\" + fileName;
                 item.write(new File(filePath));
             }
 
@@ -69,7 +69,7 @@ public class UploadServlet extends HttpServlet {
             String audioPath = StringUtils.substringBeforeLast(filePath, ".") + ".mp3";
             senderService.transcribeAudio(audioPath);
 
-            String relativeSubtitlePath = username + "/" + StringUtils.substringBeforeLast(fileName, ".") + ".vtt";
+            String relativeSubtitlePath = username + "\\" + StringUtils.substringBeforeLast(fileName, ".") + ".vtt";
             String absoluteSubtitlePath = Constants.FILE_SAVE_DIRECTORY + relativeSubtitlePath;
             String subtitleContent = StringUtils.EMPTY;
             try (FileInputStream fileInputStream = new FileInputStream(absoluteSubtitlePath)) {
@@ -77,7 +77,7 @@ public class UploadServlet extends HttpServlet {
             }
 
             session.setAttribute("fileName", fileName);
-            session.setAttribute(Constants.PROPERTY_VIDEO_ADDR,   username + "/" + fileName);
+            session.setAttribute(Constants.PROPERTY_VIDEO_ADDR,   username + "\\" + fileName);
             session.setAttribute(Constants.PROPERTY_SUBTITLE_ADDR,  relativeSubtitlePath);
             session.setAttribute("subContent", subtitleContent);
             response.sendRedirect(Constants.EDITOR_URL);

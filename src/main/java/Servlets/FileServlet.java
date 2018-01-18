@@ -20,7 +20,7 @@ public class FileServlet extends HttpServlet {
             throws ServletException, IOException
     {
         String filename = URLDecoder.decode(request.getPathInfo().substring(1), "UTF-8");
-        File file = new File(StringUtils.substringBeforeLast(Constants.FILE_SAVE_DIRECTORY,"/"), filename);
+        File file = new File(StringUtils.substringBeforeLast(Constants.FILE_SAVE_DIRECTORY,"\\"), filename);
         response.setHeader("Content-Type", getServletContext().getMimeType(filename));
         response.setHeader("Content-Length", String.valueOf(file.length()));
         response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");

@@ -1,6 +1,7 @@
 package Services;
 
 import Entities.User;
+import Utils.Constants;
 import Utils.Encryptor;
 import Utils.Mapper;
 import org.apache.commons.collections.CollectionUtils;
@@ -17,9 +18,6 @@ import java.util.List;
 
 @ApplicationScoped
 public class DataBaseImpl implements DataBase {
-    public static final String dbUsername = "root";
-    public static final String dbPassword = "root";
-    public static final String dbUrl = "jdbc:mysql://localhost:3306/VIDEO_SUBTITLES";
 
     private static final String sqlUserSelect = "SELECT username FROM accounts WHERE username = ?";
     private static final String sqlUserSelectWithPassword = "SELECT * FROM accounts WHERE username = ?";
@@ -28,7 +26,7 @@ public class DataBaseImpl implements DataBase {
 
     private Connection getConnection() throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+        return DriverManager.getConnection(Constants.dbUrl, Constants.dbUsername, Constants.dbPassword);
     }
 
     public boolean userExists(String username) throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {

@@ -32,8 +32,9 @@ public class EditorLoader extends HttpServlet {
             return;
         }
 
-        String relativeVideoPath = username + "/" + videoName + ".mp4";
-        String relativeSubtitlePath = username + "/" + videoName + ".vtt";
+        boolean hasVideoExtension = videoName.endsWith(".mp4");
+        String relativeVideoPath = username + "/" + videoName + (hasVideoExtension ? StringUtils.EMPTY : ".mp4");
+        String relativeSubtitlePath = username + "/" + (hasVideoExtension ? StringUtils.substringBeforeLast(videoName, ".") : videoName) + ".vtt";
         String subtitleContent = StringUtils.EMPTY;
         String absoluteSubtitlePath = Constants.FILE_SAVE_DIRECTORY + relativeSubtitlePath;
         try (FileInputStream fileInputStream = new FileInputStream(absoluteSubtitlePath)) {

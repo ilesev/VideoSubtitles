@@ -3,4 +3,6 @@
     display: block;
     margin: -165px auto;
     width: 50%;
+    position: relative;
+    left: 100px;
 }

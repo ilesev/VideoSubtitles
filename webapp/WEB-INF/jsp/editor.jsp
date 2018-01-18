@@ -12,7 +12,7 @@
     <%@include file="navigation.jsp"%>
 
     <h1>Editor</h1>
-    <div style="display: inline-block">
+    <div style="display: inline-block" class="form">
         <label for="videoSelector">Select a video</label>
             <select name="videoSelector" id="videoSelector" form="videoLoader">
                 <option value="">None</option>
@@ -22,7 +22,7 @@
             </select>
 
         <form action="editorLoader" method="get" id="videoLoader">
-            <input type="submit" class="btn" style="width: 239px; margin-top: 15px;" value="Load Video">
+            <input type="submit" class="btn" style="margin-top: 15px;" value="Load Video">
         </form>
     </div>
 
@@ -44,6 +44,5 @@
         </form>
     </div>
     <%}%>
-
 </body>
 </html>

@@ -8,18 +8,22 @@ public interface Constants {
     String PROPERTY_VIDEO_ADDR = "video";
     String PROPERTY_SUBTITLE_ADDR = "subtitle";
 
+    // DB
+    String dbUsername = "root";
+    String dbPassword = "root";
+    String dbUrl = "jdbc:mysql://localhost:3306/VIDEO_SUBTITLES";
+
     //Directories
-    String FILE_SAVE_DIRECTORY = "/Users/ilesev/Desktop/Web/";
+    String FILE_SAVE_DIRECTORY = "C:\\Users\\Iliyan\\Desktop\\WEB\\";
+    //FFMPEG
+    String BASE_FFMPEG_BIN_LOCATION = "C:\\Users\\Iliyan\\Desktop\\ffmpeg\\bin\\";
+    String FFMPEG_LOCATION = BASE_FFMPEG_BIN_LOCATION + "ffmpeg";
+    String FFPROBE_LOCATION = BASE_FFMPEG_BIN_LOCATION + "ffprobe";
 
     // URLS
     String LOGIN_AND_REGISTRATION_URL = "/login";
     String HOME_URL = "/";
     String EDITOR_URL = "/editor";
-
-    //FFMPEG
-    String BASE_FFMPEG_BIN_LOCATION = "/Users/ilesev/Downloads/ffmpeg/";
-    String FFMPEG_LOCATION = BASE_FFMPEG_BIN_LOCATION + "ffmpeg";
-    String FFPROBE_LOCATION = BASE_FFMPEG_BIN_LOCATION + "ffprobe";
 
     //Errors
     String ERROR_LOGGING_IN = "Username or password were incorrect.";

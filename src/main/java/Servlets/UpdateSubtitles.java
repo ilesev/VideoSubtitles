@@ -2,6 +2,7 @@ package Servlets;
 
 import Utils.Constants;
 import Utils.HttpUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +26,7 @@ public class UpdateSubtitles extends HttpServlet {
         String username = request.getSession().getAttribute(Constants.PROPERTY_USERNAME).toString();
         String fileName = request.getParameter("fileName");
 
-        String subtitlePath = Constants.FILE_SAVE_DIRECTORY + username + "/" + fileName + ".vtt";
+        String subtitlePath = Constants.FILE_SAVE_DIRECTORY + username + "\\" + (fileName.endsWith(".mp4") ? StringUtils.substringBeforeLast(fileName, ".") : fileName) + ".vtt";
         if (Files.exists(Paths.get(subtitlePath))) {
             try(PrintWriter printWriter = new PrintWriter(subtitlePath)) {
                 printWriter.write(subtitles);

@@ -20,11 +20,18 @@ public class SubtitleParserImpl implements SubtitleParser {
         double elapsedTime = 0;
         double startTime = 0;
         boolean lineSeparated = false;
+        double lastWordStartTime = 0;
+        double lastWordDuration = 0;
 
         for (int index = 0; index < w.size(); index++) {
             Words word = w.get(index);
             if(startTime == 0) {
                 startTime = word.getTime();
+            }
+            if (index > 0) {
+                lastWordStartTime = w.get(index-1).getTime();
+                lastWordDuration = w.get(index-1).getDuration();
+                elapsedTime += word.getTime() - lastWordDuration - lastWordStartTime;
             }
 
             elapsedTime += word.getDuration();
@@ -41,14 +48,14 @@ public class SubtitleParserImpl implements SubtitleParser {
                 }
             }
 
-            if (lineBuilder.length() > 38 && !lineSeparated) {
+            if (lineBuilder.length() > 40 && !lineSeparated) {
                 lineSeparated = true;
                 lineBuilder.append(System.lineSeparator());
             } else {
                 lineBuilder.append(" ");
             }
 
-            if (elapsedTime > 550 || lineBuilder.length() > 76) {
+            if (elapsedTime > 800 || lineBuilder.length() > 80) {
                 Timer start = new Timer(startTime);
                 Timer end = new Timer(startTime + elapsedTime);
 
@@ -69,7 +76,7 @@ public class SubtitleParserImpl implements SubtitleParser {
         }
 
         try(PrintWriter printWriter = new PrintWriter(subtitleLocation)) {
-            printWriter.write(result.toString());
+            printWriter.write(result.toString().trim());
         }
     }
 }
