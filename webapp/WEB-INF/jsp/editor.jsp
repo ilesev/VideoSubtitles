@@ -28,7 +28,7 @@
 
     <div class="container">
         <% if(request.getSession().getAttribute(Constants.PROPERTY_VIDEO_ADDR) != null) {%>
-        <video width="640" height="480" style="padding-bottom: 20px;" crossorigin="anonymous" controls>
+        <video width="640" height="480" style="padding-bottom: 20px;" crossorigin="anonymous" controls onclick="this.paused ? this.play() : this.pause();">
             <source src="/files/${video}" type="video/mp4">
             <track src="/files/${subtitle}" kind="subtitles" srclang="en" label="English" default>
         </video>

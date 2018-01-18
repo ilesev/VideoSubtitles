@@ -26,13 +26,14 @@
                 <c:when test="${item.fileType == 'Video'}">
                     <img src="${pageContext.request.contextPath}/images/movie.png" alt=""
                          style="width: 32px; display: inline-block;">
+                    <a href="/files/${username}/${item.fileName}.mp4" style="vertical-align: super" download="movie.mp4">${item.fileName}</a>
                 </c:when>
                 <c:when test="${item.fileType == 'Subtitle'}">
                     <img src="${pageContext.request.contextPath}/images/subtitle.png" alt=""
                          style="width: 32px; display: inline-block;">
+                    <a href="/files/${username}/${item.fileName}.vtt" style="vertical-align: super" download="sub.vtt">${item.fileName}</a>
                 </c:when>
             </c:choose>
-            <a href="#" style="vertical-align: super">${item.fileName}</a>
         </li>
     </c:forEach>
 </ul>
