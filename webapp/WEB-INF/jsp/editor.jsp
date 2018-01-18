@@ -23,11 +23,21 @@
         <input type="submit" value="Load Video">
     </form>
 
-    <% if(request.getSession().getAttribute(Constants.PROPERTY_VIDEO_ADDR) != null) {%>
-    <video width="640" height="480" crossorigin="anonymous" controls>
-        <source src="/files/${video}" type="video/mp4">
-        <track src="/files/${subtitle}" kind="subtitles" srclang="en" label="English" default>
-    </video>
+    <div class="container">
+        <% if(request.getSession().getAttribute(Constants.PROPERTY_VIDEO_ADDR) != null) {%>
+        <video width="640" height="480" style="padding-bottom: 20px;" crossorigin="anonymous" controls>
+            <source src="/files/${video}" type="video/mp4">
+            <track src="/files/${subtitle}" kind="subtitles" srclang="en" label="English" default>
+        </video>
+
+        <br>
+
+        <label for="subtitle">Subtitles</label>
+        <br>
+        <textarea rows="12" cols="50" style="width: 640px;" id="subtitle">
+            ${subContent}
+        </textarea>
+    </div>
     <c:remove var="video" scope="session" />
     <c:remove var="subtitle" scope="session" />
     <%}%>
