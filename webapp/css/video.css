@@ -1,1 +1,6 @@
 /*TODO*/
+.container {
+    display: block;
+    margin: -165px auto;
+    width: 50%;
+}

@@ -29,17 +29,17 @@ import java.util.List;
 @ApplicationScoped
 public class HttpSenderServiceImpl implements HttpSenderService {
 
-    private static final String AUTH_TOKEN = "ODYzMDFkNDEtMWQ3OC00NmM1LWFlM2QtZTlmNzI3NzUwZmMy";
+    private static final String AUTH_TOKEN = "MzY1NDZkZDQtODU0ZS00MTUwLWJiNGEtODc1ZDE4YTNjZmIy";
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    private static final String JOB_REQUEST = "https://api.speechmatics.com/v1.0/user/34828/jobs/%d/transcript?format=json&auth_token=%s";
-    private static final String STATUS_REQUEST = "https://api.speechmatics.com/v1.0/user/34828/jobs/%s/?auth_token=%s";
+    private static final String JOB_REQUEST = "https://api.speechmatics.com/v1.0/user/35071/jobs/%d/transcript?format=json&auth_token=%s";
+    private static final String STATUS_REQUEST = "https://api.speechmatics.com/v1.0/user/35071/jobs/%s/?auth_token=%s";
 
     @Inject
     private SubtitleParser subtitleParser;
 
     @Override
     public void transcribeAudio(String audioPath) throws URISyntaxException, IOException {
-        URI uri = new URIBuilder("https://api.speechmatics.com/v1.0/user/34828/jobs/")
+        URI uri = new URIBuilder("https://api.speechmatics.com/v1.0/user/35071/jobs/")
                 .addParameter("auth_token", AUTH_TOKEN)
                 .build();
         try(CloseableHttpClient httpclient = HttpClients.createDefault()) {

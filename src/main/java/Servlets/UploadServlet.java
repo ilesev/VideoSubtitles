@@ -8,6 +8,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
@@ -18,7 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -66,8 +69,17 @@ public class UploadServlet extends HttpServlet {
             String audioPath = StringUtils.substringBeforeLast(filePath, ".") + ".mp3";
             senderService.transcribeAudio(audioPath);
 
+            String relativeSubtitlePath = username + "/" + StringUtils.substringBeforeLast(fileName, ".") + ".vtt";
+            String absoluteSubtitlePath = Constants.FILE_SAVE_DIRECTORY + relativeSubtitlePath;
+            String subtitleContent = StringUtils.EMPTY;
+            try (FileInputStream fileInputStream = new FileInputStream(absoluteSubtitlePath)) {
+                subtitleContent = IOUtils.toString(fileInputStream, Charset.defaultCharset());
+            }
+
+            session.setAttribute("fileName", fileName);
             session.setAttribute(Constants.PROPERTY_VIDEO_ADDR,   username + "/" + fileName);
-            session.setAttribute(Constants.PROPERTY_SUBTITLE_ADDR,  username + "/" + StringUtils.substringBeforeLast(fileName, ".") + ".vtt");
+            session.setAttribute(Constants.PROPERTY_SUBTITLE_ADDR,  relativeSubtitlePath);
+            session.setAttribute("subContent", subtitleContent);
             response.sendRedirect(Constants.EDITOR_URL);
         } catch (Exception e) {
             session.setAttribute(Constants.PROPERTY_ERROR_MESSAGE, Constants.ERROR_UPLOAD_FAILED);
